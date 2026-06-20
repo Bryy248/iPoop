@@ -8,14 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    enum AppTab: String, CaseIterable {
+        case home = "Home"
+        case poop = "Poop"
+        
+        var icon: String {
+            switch self {
+            case .home: return "house.fill"
+            case .poop: return "nose"
+            }
         }
-        .padding()
+        
+    }
+    @State var selectedTab: AppTab = .home
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            ForEach(AppTab.allCases, id: \.self) { tab in
+                tabView(for: tab)
+                    .tabItem {
+                        Label(tab.rawValue, systemImage: tab.icon)
+                    }
+                    .tag(tab)
+            }
+        }
+    }
+    @ViewBuilder
+    func tabView(for tab: AppTab) -> some View {
+        switch tab {
+        case .home: LogPageView()
+        case .poop: Text("Poop")
+        }
     }
 }
 
