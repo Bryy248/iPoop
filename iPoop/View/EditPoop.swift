@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct EditPoop: View {
+    @State private var goToCollection = false
+
     var body: some View {
         NavigationStack{
             VStack (alignment: .leading) {
@@ -99,7 +101,9 @@ struct EditPoop: View {
                 }
                 
                 Button(action: {
+                    goToCollection = true
                 }) {
+                    
                     Text("Save Poop")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
@@ -135,6 +139,13 @@ struct EditPoop: View {
                     .foregroundColor(.black)
                 }
             }
+            
+            NavigationLink(isActive: $goToCollection) {
+                PoopCollectionView()
+            } label: {
+                EmptyView()
+            }
+            .hidden()
         }
     }
 }
