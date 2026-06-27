@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PoopCollectionView: View {
+    @Environment(AppRouter.self) private var router   // ← tambah
+    @Query(sort: \Poop.createdAt, order: .reverse) private var poops: [Poop]
+    
     @State private var today: Date = .now
     @State private var didInitialScroll = false
     private let calendar = Calendar.current
@@ -63,7 +67,30 @@ struct PoopCollectionView: View {
         return days.first(where: { calendar.isDate($0.date, inSameDayAs: start) })?.id
     }
     
+    @ViewBuilder
+    private func dayChip(_ item: DayItem) -> some View {
+        let isToday = calendar.isDate(item.date, inSameDayAs: today)
+        VStack(spacing: 4) {
+            Text(item.monthAbbrev)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+            Text(item.dayNumber)
+                .font(.caption).bold()
+        }
+        .padding(8)
+        .background(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(isToday ? Color.blue.opacity(0.15) : Color.clear)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .stroke(isToday ? Color.blue : Color.black, lineWidth: 2)
+        )
+        .id(item.id)
+    }
+    
     var body: some View {
+        @Bindable var router = router
         NavigationStack {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Poop Collection")
@@ -79,23 +106,7 @@ struct PoopCollectionView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
                             ForEach(days) { item in
-                                let isToday = calendar.isDate(item.date, inSameDayAs: today)
-                                VStack(spacing: 4) {
-                                    Text(item.monthAbbrev)
-                                        .font(.caption2)
-                                        .foregroundColor(.secondary)
-                                    Text(item.dayNumber)
-                                        .font(.caption).bold()
-                                }
-                                .padding(8)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                        .fill(isToday ? Color.blue.opacity(0.15) : Color.clear)
-                                )
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                        .stroke(isToday ? Color.blue : Color.black, lineWidth: 2)
-                                )                                .id(item.id)
+                                dayChip(item)
                             }
                         }
                         .padding(.vertical, 8)
@@ -118,30 +129,38 @@ struct PoopCollectionView: View {
                 }
                 ScrollView {
                     VStack(spacing: 12) {
-                        PoopCard()
-                        PoopCard()
-                        PoopCard()
+                        ForEach(poops) { poop in
+                            Button {
+                                router.editingPoop = poop
+                            } label: {
+                                PoopCard(poop: poop)
+                            }
+                            .buttonStyle(.plain)
+                        }
                     }
                 }
             }
-        }
-        .padding(.horizontal, 16)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 15) {
-                    Image(systemName: "toilet")
-                }
-                .font(.title3)
-                .foregroundColor(.black)
+            .padding(.horizontal, 16)
+            .navigationDestination(item: $router.editingPoop) { poop in
+                EditPoop(poop: poop)
             }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 15) {
-                    Image(systemName: "person.circle")
-                    Image(systemName: "bell")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 15) {
+                        Image(systemName: "toilet")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.black)
                 }
-                .font(.title3)
-                .foregroundColor(.black)
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack(spacing: 15) {
+                        Image(systemName: "person.circle")
+                        Image(systemName: "bell")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.black)
+                }
             }
         }
     }
@@ -149,4 +168,6 @@ struct PoopCollectionView: View {
 
 #Preview {
     PoopCollectionView()
+        .environment(AppRouter())
+        .modelContainer(for: Poop.self, inMemory: true)
 }

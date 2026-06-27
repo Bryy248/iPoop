@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct PoopCard: View {
+    let poop: Poop
+
     private struct DetailRow: View {
         let label: String
         let value: String
@@ -24,8 +26,9 @@ struct PoopCard: View {
             }
         }
     }
+
     var body: some View {
-        VStack (spacing: 16){
+        VStack(spacing: 16) {
             Grid(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 8) {
                 GridRow {
                     Rectangle()
@@ -33,28 +36,28 @@ struct PoopCard: View {
                         .frame(width: 100, height: 100)
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("GoPoop")
+                        Text(poop.name)
                             .font(.title3)
                             .fontWeight(.bold)
-                        Text("Poop pas lagi di toilet GOP 9, mules banget bray")
+                        Text(poop.details)
                             .font(.subheadline)
                     }
                     .gridCellAnchor(.topLeading)
                 }
 
-                DetailRow(label: "Food", value: "Sosis Kasturi")
-                DetailRow(label: "Drink", value: "Es Teh Manis")
-                DetailRow(label: "Age", value: "9 months 12 days")
+                DetailRow(label: "Food",  value: poop.food)
+                DetailRow(label: "Drink", value: poop.drink)
+                DetailRow(label: "Age",   value: poop.age)
             }
-            
+
             HStack {
-                Label("24.0g", systemImage: "scalemass.fill")
+                Label(poop.weightText, systemImage: "scalemass.fill")
                     .font(.subheadline)
                 Spacer()
-                Label("9.0cm", systemImage: "arrow.up.and.down")
+                Label(poop.heightText, systemImage: "arrow.up.and.down")
                     .font(.subheadline)
                 Spacer()
-                Label("24.0cm", systemImage: "ruler.fill")
+                Label(poop.lengthText, systemImage: "ruler.fill")
                     .font(.subheadline)
             }
         }
@@ -71,5 +74,8 @@ struct PoopCard: View {
 }
 
 #Preview {
-    PoopCard()
+    PoopCard(poop: Poop(name: "GoPoop",
+                        details: "Poop pas lagi di toilet GOP 9, mules banget bray",
+                        food: "Sosis Kasturi",
+                        drink: "Es Teh Manis"))
 }

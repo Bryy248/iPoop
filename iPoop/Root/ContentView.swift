@@ -22,7 +22,7 @@ enum AppTab: String, CaseIterable {
 @Observable
 final class AppRouter {
     var selectedTab: AppTab = .home
-    var showEditPoop = false 
+    var editingPoop: Poop?
 }
 
 struct ContentView: View {
