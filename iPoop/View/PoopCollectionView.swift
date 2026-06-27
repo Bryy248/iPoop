@@ -11,7 +11,7 @@ struct PoopCollectionView: View {
     @State private var today: Date = .now
     @State private var didInitialScroll = false
     private let calendar = Calendar.current
-
+    
     private struct DayItem: Identifiable {
         private let calendar = Calendar.current
         let id = UUID()
@@ -36,13 +36,13 @@ struct PoopCollectionView: View {
         let start = calendar.startOfDay(for: today)
         var items: [DayItem] = []
         items.append(DayItem(date: start))
-
+        
         for i in 1...daysAfter {
             if let d = calendar.date(byAdding: .day, value: i, to: start) {
                 items.append(DayItem(date: d))
             }
         }
-
+        
         var previous: [DayItem] = []
         for i in 1...daysBefore {
             if let d = calendar.date(byAdding: .day, value: -i, to: start) {
@@ -50,14 +50,14 @@ struct PoopCollectionView: View {
             }
         }
         items.insert(contentsOf: previous.reversed(), at: 0)
-
+        
         return items
     }
     
     private var days: [DayItem] {
         generateDays(daysBefore: 3, daysAfter: 30)
     }
-
+    
     private var todayID: UUID? {
         let start = calendar.startOfDay(for: today)
         return days.first(where: { calendar.isDate($0.date, inSameDayAs: start) })?.id
@@ -69,12 +69,12 @@ struct PoopCollectionView: View {
                 Text("Poop Collection")
                     .font(.largeTitle).bold()
                     .padding(.top, 8)
-
+                
                 Text("Here is your poop collection so far!")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .padding(.bottom, 12)
-
+                
                 ScrollViewReader { proxy in
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 12) {
@@ -102,10 +102,10 @@ struct PoopCollectionView: View {
                     }
                     .onAppear {
                         today = Date()
-
+                        
                         guard !didInitialScroll, let id = todayID else { return }
                         didInitialScroll = true
-
+                        
                         DispatchQueue.main.async {
                             withAnimation(.easeOut(duration: 0.25)) {
                                 proxy.scrollTo(id, anchor: .leading)
@@ -116,7 +116,6 @@ struct PoopCollectionView: View {
                         didInitialScroll = false
                     }
                 }
-
                 ScrollView {
                     VStack(spacing: 12) {
                         PoopCard()
@@ -124,26 +123,25 @@ struct PoopCollectionView: View {
                         PoopCard()
                     }
                 }
-                Spacer()
             }
-            .padding(16)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack(spacing: 15) {
-                        Image(systemName: "toilet")
-                    }
-                    .font(.title3)
-                    .foregroundColor(.black)
+        }
+        .padding(.horizontal, 16)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                HStack(spacing: 15) {
+                    Image(systemName: "toilet")
                 }
-
-                ToolbarItem(placement: .topBarTrailing) {
-                    HStack(spacing: 15) {
-                        Image(systemName: "person.circle")
-                        Image(systemName: "bell")
-                    }
-                    .font(.title3)
-                    .foregroundColor(.black)
+                .font(.title3)
+                .foregroundColor(.black)
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack(spacing: 15) {
+                    Image(systemName: "person.circle")
+                    Image(systemName: "bell")
                 }
+                .font(.title3)
+                .foregroundColor(.black)
             }
         }
     }

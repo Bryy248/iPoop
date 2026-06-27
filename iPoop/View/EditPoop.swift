@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EditPoop: View {
-    @State private var goToCollection = false
-
+    @Environment(AppRouter.self) private var router
+    
     var body: some View {
         NavigationStack{
             VStack (alignment: .leading) {
@@ -101,9 +101,10 @@ struct EditPoop: View {
                 }
                 
                 Button(action: {
-                    goToCollection = true
+                    // TODO: simpan data poop-nya dulu di sini
+                    router.showEditPoop = false
+                    router.selectedTab = .poop      // pindah ke tab Poop → no chevron
                 }) {
-                    
                     Text("Save Poop")
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(.white)
@@ -111,7 +112,7 @@ struct EditPoop: View {
                         .padding(.horizontal, 40)
                         .background(
                             Capsule()
-                                .tint(.blue)
+                                .fill(.blue) 
                         )
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -139,17 +140,11 @@ struct EditPoop: View {
                     .foregroundColor(.black)
                 }
             }
-            
-            NavigationLink(isActive: $goToCollection) {
-                PoopCollectionView()
-            } label: {
-                EmptyView()
-            }
-            .hidden()
         }
     }
 }
 
 #Preview {
     EditPoop()
+        .environment(AppRouter())
 }

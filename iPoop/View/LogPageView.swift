@@ -7,8 +7,11 @@
 import SwiftUI
 
 struct LogPageView: View {
-    @State private var goToEdit = false
+    @Environment(AppRouter.self) private var router
+    
     var body: some View {
+        
+        @Bindable var router = router
         
         NavigationStack {
             VStack {
@@ -39,7 +42,7 @@ struct LogPageView: View {
                 .padding(.horizontal)
                 
                 Button(action: {
-                    goToEdit = true
+                    router.showEditPoop = true
                 }) {
                     Text("Add Poop")
                         .font(.system(size: 16, weight: .medium))
@@ -56,7 +59,7 @@ struct LogPageView: View {
                 
                 Spacer()
             }
-            .navigationDestination(isPresented: $goToEdit) {
+            .navigationDestination(isPresented: $router.showEditPoop) {
                 EditPoop()
             }
             .toolbar {
@@ -82,4 +85,5 @@ struct LogPageView: View {
 }
 #Preview {
     LogPageView()
+        .environment(AppRouter())
 }
