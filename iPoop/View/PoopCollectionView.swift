@@ -140,24 +140,27 @@ struct PoopCollectionView: View {
                     }
                 }
             }
-        }
-        .padding(.horizontal, 16)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 15) {
-                    Image(systemName: "toilet")
-                }
-                .font(.title3)
-                .foregroundColor(.black)
+            .padding(.horizontal, 16)
+            .navigationDestination(item: $router.editingPoop) { poop in
+                EditPoop(poop: poop)
             }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                HStack(spacing: 15) {
-                    Image(systemName: "person.circle")
-                    Image(systemName: "bell")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 15) {
+                        Image(systemName: "toilet")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.black)
                 }
-                .font(.title3)
-                .foregroundColor(.black)
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    HStack(spacing: 15) {
+                        Image(systemName: "person.circle")
+                        Image(systemName: "bell")
+                    }
+                    .font(.title3)
+                    .foregroundColor(.black)
+                }
             }
         }
     }
