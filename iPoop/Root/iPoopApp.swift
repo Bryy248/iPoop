@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct iPoopApp: App {
@@ -13,5 +14,6 @@ struct iPoopApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Poop.self)
     }
 }

@@ -42,7 +42,7 @@ struct LogPageView: View {
                 .padding(.horizontal)
                 
                 Button(action: {
-                    router.showEditPoop = true
+                    router.editingPoop = Poop()
                 }) {
                     Text("Add Poop")
                         .font(.system(size: 16, weight: .medium))
@@ -59,8 +59,8 @@ struct LogPageView: View {
                 
                 Spacer()
             }
-            .navigationDestination(isPresented: $router.showEditPoop) {
-                EditPoop()
+            .navigationDestination(item: $router.editingPoop) { poop in
+                EditPoop(poop: poop)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
