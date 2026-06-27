@@ -7,22 +7,29 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    enum AppTab: String, CaseIterable {
-        case home = "Home"
-        case poop = "Poop"
-        
-        var icon: String {
-            switch self {
-            case .home: return "house.fill"
-            case .poop: return "nose"
-            }
+enum AppTab: String, CaseIterable {
+    case home = "Home"
+    case poop = "Poop"
+
+    var icon: String {
+        switch self {
+        case .home: return "house.fill"
+        case .poop: return "nose"
         }
-        
     }
-    @State var selectedTab: AppTab = .home
+}
+
+@Observable
+final class AppRouter {
+    var selectedTab: AppTab = .home
+    var showEditPoop = false 
+}
+
+struct ContentView: View {
+    @State private var router = AppRouter()
+
     var body: some View {
-        TabView(selection: $selectedTab) {
+        TabView(selection: $router.selectedTab) {
             ForEach(AppTab.allCases, id: \.self) { tab in
                 tabView(for: tab)
                     .tabItem {
@@ -31,12 +38,14 @@ struct ContentView: View {
                     .tag(tab)
             }
         }
+        .environment(router)   // sebarkan router ke semua child view (termasuk EditPoop)
     }
+
     @ViewBuilder
     func tabView(for tab: AppTab) -> some View {
         switch tab {
         case .home: LogPageView()
-        case .poop: Text("Poop")
+        case .poop: PoopCollectionView()
         }
     }
 }
