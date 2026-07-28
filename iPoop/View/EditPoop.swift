@@ -22,92 +22,13 @@ struct EditPoop: View {
     var body: some View {
         NavigationStack{
             VStack (alignment: .leading) {
-                PoopCard(poop: poop)
+                PoopCard(poop: poop, draft: draft)
                 
                 Text("Edit Poop Detail")
                     .font(.body)
                     .padding(.top, 16)
                     .padding(.bottom, 8)
                 
-//                VStack (spacing: 8) {
-//                    VStack (alignment: .leading, spacing: 4) {
-//                        HStack {
-//                            Text("Poop Name")
-//                            Spacer()
-//                            Image(systemName: "square.and.pencil")
-//                        }
-//                        .font(.subheadline)
-//                        Text("GoPoop")
-//                            .font(.footnote)
-//                    }
-//                    .padding(16)
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .fill(Color(.systemBackground))
-//                    )
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .stroke(Color.black, lineWidth: 2)
-//                    )
-//                    
-//                    VStack (alignment: .leading, spacing: 4) {
-//                        HStack {
-//                            Text("Poop Description")
-//                            Spacer()
-//                            Image(systemName: "square.and.pencil")
-//                        }
-//                        .font(.subheadline)
-//                        Text("GoPoop")
-//                            .font(.footnote)
-//                    }
-//                    .padding(16)
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .fill(Color(.systemBackground))
-//                    )
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .stroke(Color.black, lineWidth: 2)
-//                    )
-//                    VStack (alignment: .leading, spacing: 4) {
-//                        HStack {
-//                            Text("Food")
-//                            Spacer()
-//                            Image(systemName: "square.and.pencil")
-//                        }
-//                        .font(.subheadline)
-//                        Text("GoPoop")
-//                            .font(.footnote)
-//                    }
-//                    .padding(16)
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .fill(Color(.systemBackground))
-//                    )
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .stroke(Color.black, lineWidth: 2)
-//                    )
-//                    VStack (alignment: .leading, spacing: 4) {
-//                        HStack {
-//                            Text("Drink")
-//                            Spacer()
-//                            Image(systemName: "square.and.pencil")
-//                        }
-//                        .font(.subheadline)
-//                        Text("GoPoop")
-//                            .font(.footnote)
-//                    }
-//                    .padding(16)
-//                    .background(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .fill(Color(.systemBackground))
-//                    )
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-//                            .stroke(Color.black, lineWidth: 2)
-//                    )
-//                }
                 VStack(spacing: 8) {
                     field("Poop Name", text: $draft.name)
                     field("Poop Description", text: $draft.details)
