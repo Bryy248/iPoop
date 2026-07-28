@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		DBB9B01E2FE19D460075A1EA /* iPoop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPoop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBB9B01E2FE19D460075A1EA /* Pugupigiy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pugupigiy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		DBB9B01F2FE19D460075A1EA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DBB9B01E2FE19D460075A1EA /* iPoop.app */,
+				DBB9B01E2FE19D460075A1EA /* Pugupigiy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DBB9B01D2FE19D460075A1EA /* iPoop */ = {
+		DBB9B01D2FE19D460075A1EA /* Pugupigiy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DBB9B0292FE19D470075A1EA /* Build configuration list for PBXNativeTarget "iPoop" */;
+			buildConfigurationList = DBB9B0292FE19D470075A1EA /* Build configuration list for PBXNativeTarget "Pugupigiy" */;
 			buildPhases = (
 				DBB9B01A2FE19D460075A1EA /* Sources */,
 				DBB9B01B2FE19D460075A1EA /* Frameworks */,
@@ -63,11 +63,11 @@
 			fileSystemSynchronizedGroups = (
 				DBB9B0202FE19D460075A1EA /* iPoop */,
 			);
-			name = iPoop;
+			name = Pugupigiy;
 			packageProductDependencies = (
 			);
 			productName = iPoop;
-			productReference = DBB9B01E2FE19D460075A1EA /* iPoop.app */;
+			productReference = DBB9B01E2FE19D460075A1EA /* Pugupigiy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DBB9B01D2FE19D460075A1EA /* iPoop */,
+				DBB9B01D2FE19D460075A1EA /* Pugupigiy */,
 			);
 		};
 /* End PBXProject section */
@@ -324,7 +324,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DBB9B0292FE19D470075A1EA /* Build configuration list for PBXNativeTarget "iPoop" */ = {
+		DBB9B0292FE19D470075A1EA /* Build configuration list for PBXNativeTarget "Pugupigiy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DBB9B02A2FE19D470075A1EA /* Debug */,
